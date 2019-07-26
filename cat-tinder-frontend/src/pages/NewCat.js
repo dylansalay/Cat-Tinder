@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { Form, Group, Label, Control, Button, Check } from 'react-bootstrap'
-import { BrowserRouter as Router, Link, Switch, Route, Redirect } from 'react-router-dom'
+import { Form, Button, Container } from 'react-bootstrap'
+import { Redirect } from 'react-router-dom'
 
 
 export default class NewCat extends Component {
@@ -22,13 +22,14 @@ export default class NewCat extends Component {
         this.setState({ form: form })
     }
 
-    handleClick = () => {
+    handleClick = (e) => {
+        e.preventDefault()
         this.props.handleNewCat(this.state.form)
     }
 
     render() {
         return (
-            <div>
+            <Container>
             <Form>
               <Form.Group controlId="name">
                 <Form.Label>Name</Form.Label>
@@ -69,7 +70,8 @@ export default class NewCat extends Component {
             </Form>
 
             {this.props.success && <Redirect to="/cats" />}
-            </div>
+
+            </Container>
         )
     }
 }

@@ -11,7 +11,6 @@ let getCats = function() {
 		})
 }
 
-
 let createCat = function(cat) {
 	return fetch(BASE + '/cats', {
 		body: JSON.stringify(cat),
@@ -24,5 +23,19 @@ let createCat = function(cat) {
 		})
 }
 
-export  { getCats }
-export  { createCat }
+let deleteCat = function(id) {
+	return fetch(BASE + '/cats/' + id, {
+		body: JSON.stringify(id),
+		headers: { 'Content-Type': 'application/json' },
+		method: "DELETE"
+	})
+		.then((resp) => {
+			let json = resp.json()
+			return json
+		})
+}
+
+
+export { getCats }
+export { createCat }
+export { deleteCat }

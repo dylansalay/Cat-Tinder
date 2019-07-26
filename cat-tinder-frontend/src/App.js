@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Link, Switch, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import './App.css';
 import { getCats } from './api'
 import { createCat } from './api'
+import { deleteCat } from './api'
 
 import Cats from './pages/Cats'
 import NewCat from './pages/NewCat'
@@ -13,7 +14,8 @@ export default class App extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            cats: []
+            cats: [],
+            success: false
         }
     }
 
@@ -26,13 +28,30 @@ export default class App extends Component {
         })
     }
 
-    handleNewCat(newCatInfo) {
+    handleNewCat = (newCatInfo) => {
         createCat(newCatInfo)
         .then(successCat => {
-        console.log("SUCCESS! New cat: ", successCat);
+            console.log("Added: ", successCat);
+            if (typeof successCat.id === 'number') {
+                let successStatus = this.state.success
+                successStatus = true
+                this.setState({ success: successStatus})
+                console.log(this.state.success);
+            }
         })
     }
 
+    handleDeleteCat = (id) => {
+        deleteCat(id)
+        .then(deleteCat => {
+            console.log("Deleted: ", deleteCat);
+            if (typeof deleteCat.id === 'number') {
+                let cats = this.state.cats
+                console.log(this.state.cats);
+                window.location.reload()
+            }
+        })
+    }
 
     render() {
         return (
@@ -44,13 +63,20 @@ export default class App extends Component {
                             <Route
                             exact path="/cats"
                             render={(props) =>
-                            <Cats cats={ this.state.cats}/>
+                            <Cats
+                                cats={ this.state.cats}
+                                handleDeleteCat={this.handleDeleteCat}
+                                deleteSuccess={this.state.deleteSuccess}
+                            />
                             }
                             />
                             <Route
                             exact path="/newcat"
                             render={(props) =>
-                            <NewCat {...props} handleNewCat={this.handleNewCat}/>
+                            <NewCat {...props}
+                                handleNewCat={this.handleNewCat}
+                                success={this.state.success}
+                            />
                             }
                             />
                         </Switch>

@@ -1,35 +1,39 @@
 import React, { Component } from 'react'
-import {
-    Col, Container, Row, ListGroup, Button, Item, Card, Body, Title, Subtitle, Text
-} from 'react-bootstrap'
+import { Col, Container, Row, Button, Card } from 'react-bootstrap'
+import { Redirect } from 'react-router-dom'
 
 export default class Cats extends Component {
 
-    handleClick = (e) => {
-        console.log(e.target.parentNode)
+    handleClick = (id) => {
+        this.props.handleDeleteCat(id)
     }
 
     render() {
         return (
             <Container>
+                <h4>Active cats</h4>
                 <Row>
                     {this.props.cats.map((cat, index) =>{
                         return (
-                            <Col>
-                            <Card key={index} style={{ width: '18rem' }}>
+                            <Col key={index}>
+                            <Card
+                                key={index}
+                                style={{ width: '18rem' }}
+                                >
                                 <Card.Body>
                                     <Card.Title>{cat.name}</Card.Title>
                                     <Card.Subtitle className="mb-2 text-muted">Age: {cat.age}
                                     </Card.Subtitle>
                                     <Card.Text>{cat.enjoys}
                                     </Card.Text>
-                                    <Button onClick={this.handleClick} size="sm" variant="outline-danger">Delete                               </Button>
+                                    <Button onClick={() => this.handleClick(cat.id)} size="sm" variant="outline-danger">Delete                               </Button>
                                 </Card.Body>
                             </Card>
                             </Col>
                         )
                     })}
                 </Row>
+
             </Container>
         );
     }

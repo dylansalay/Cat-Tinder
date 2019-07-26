@@ -25,10 +25,9 @@ class CatsController < ApplicationController
     end
 
     def destroy
-        @cats = Cat.all
         @cat = Cat.find(params[:id])
         @cat.destroy
-        render json: @cats
+        render json: @cat
     end
 
     def cat_params

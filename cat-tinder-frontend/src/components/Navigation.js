@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Navbar, Nav, Brand, Link, Container } from 'react-bootstrap'
+import { Navbar, Nav, Container } from 'react-bootstrap'
 import logo from '../logo.png'
 
 export default class Navigation extends Component {
@@ -7,7 +7,7 @@ export default class Navigation extends Component {
         return (
             <Navbar bg="primary" variant="dark">
             <Container>
-                <Navbar>{<a href="/cats" ><img id="logo" src={logo} /></a>}
+                <Navbar>{<a href="/cats" ><img id="logo" src={logo} alt="Cat Tinder logo"/></a>}
                 </Navbar>
                     <Nav className="mr-auto">
                     <Nav.Link href="/cats">Cats</Nav.Link>
