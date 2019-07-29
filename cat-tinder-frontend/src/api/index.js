@@ -33,6 +33,9 @@ let deleteCat = function(id) {
 			let json = resp.json()
 			return json
 		})
+		.then((resp) => {
+			return getCats()
+		})
 }
 
 

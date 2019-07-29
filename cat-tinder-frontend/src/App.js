@@ -28,6 +28,15 @@ export default class App extends Component {
         })
     }
 
+    // componentDidUpdate() {
+    //     getCats()
+    //         .then(APIcats => {
+    //             this.setState({
+    //             cats: APIcats
+    //         })
+    //     })
+    // }
+
     handleNewCat = (newCatInfo) => {
         createCat(newCatInfo)
         .then(successCat => {
@@ -45,11 +54,7 @@ export default class App extends Component {
         deleteCat(id)
         .then(deleteCat => {
             console.log("Deleted: ", deleteCat);
-            if (typeof deleteCat.id === 'number') {
-                let cats = this.state.cats
-                console.log(this.state.cats);
-                window.location.reload()
-            }
+            this.setState({ cats: deleteCat})
         })
     }
 
